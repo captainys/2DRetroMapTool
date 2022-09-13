@@ -117,6 +117,30 @@ Then, my friend suggested to play "Chrono Trigger" on iPhone.  I used this progr
 
 Well, maybe someone else has already written something similar.  But, what's wrong with adding one?
 
+
+---
+
+## ビルド方法
+作業ディレクトリで、次のコマンドを実行。
+1) git clone https://github.com/captainys/2DRetroMapTool.git
+2) git clone https://github.com/captainys/public.git
+3) cd 2DRetroMapTool
+4) mkdir build
+5) cd build
+6) cmake ../src
+7) cmake --build . --config Release --target 2DRetroMapTool --parallel
+
+## Build Instruction
+In the working directory:
+1) git clone https://github.com/captainys/2DRetroMapTool.git
+2) git clone https://github.com/captainys/public.git
+3) cd 2DRetroMapTool
+4) mkdir build
+5) cd build
+6) cmake ../src
+7) cmake --build . --config Release --target 2DRetroMapTool --parallel
+
+
 ---
 
 ## 効能
