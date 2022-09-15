@@ -114,27 +114,6 @@ void FsGui3DMainCanvas::DrawingToolDialog::TurnOffDrawingMode(void)
 
 ////////////////////////////////////////////////////////////
 
-class FsGui3DMainCanvas::ControlDialog : public FsGuiDialog
-{
-public:
-	FsGui3DMainCanvas *canvasPtr;
-	FsGuiDropList *fieldDrp;
-	FsGuiStatic *numBmpTxt;
-	FsGuiButton *up,*down,*left,*right;
-	FsGuiButton *addFile,*addNewScrnshot,*addCommentBtn;
-	FsGuiButton *showDiffBtn;
-	FsGuiNumberBox *diffThrNbx;
-	FsGuiButton *adjustBtn;
-	FsGuiButton *autoInsertNewScreenShotBtn;
-
-	time_t lastAutoInsertTime=0;
-
-	void Make(FsGui3DMainCanvas *canvasPtr);
-	virtual void OnButtonClick(FsGuiButton *btn);
-	virtual void OnDropListSelChange(FsGuiDropList *drp,int prevSel);
-	virtual void OnNumberBoxChange(FsGuiNumberBox *nbx,int prevNum);
-};
-
 void FsGui3DMainCanvas::ControlDialog::Make(FsGui3DMainCanvas *canvasPtr)
 {
 	this->canvasPtr=canvasPtr;
@@ -157,6 +136,7 @@ void FsGui3DMainCanvas::ControlDialog::Make(FsGui3DMainCanvas *canvasPtr)
 	adjustBtn=AddTextButton(0,FSKEY_NULL,FSGUI_PUSHBUTTON,FSGUI_DLG_CONTROL_ADJUSTMENT,YSFALSE);
 
 	autoInsertNewScreenShotBtn=AddTextButton(0,FSKEY_NULL,FSGUI_CHECKBOX,"Auto Add New Screenshot",YSTRUE);
+	insertNewImageBehindBtn=AddTextButton(0,FSKEY_NULL,FSGUI_CHECKBOX,"Insert New Image Behind",YSFALSE);
 
 	YsArray <YsArray <FsGuiDialogItem *> > matrix;
 	matrix.Increment();

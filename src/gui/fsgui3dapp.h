@@ -67,7 +67,28 @@ public:
 	*/
 	YSBOOL appMustTerminate;
 
-	class ControlDialog;
+	class ControlDialog : public FsGuiDialog
+	{
+	public:
+		FsGui3DMainCanvas *canvasPtr;
+		FsGuiDropList *fieldDrp;
+		FsGuiStatic *numBmpTxt;
+		FsGuiButton *up,*down,*left,*right;
+		FsGuiButton *addFile,*addNewScrnshot,*addCommentBtn;
+		FsGuiButton *showDiffBtn;
+		FsGuiNumberBox *diffThrNbx;
+		FsGuiButton *adjustBtn;
+		FsGuiButton *autoInsertNewScreenShotBtn;
+		FsGuiButton *insertNewImageBehindBtn;
+
+		time_t lastAutoInsertTime=0;
+
+		void Make(FsGui3DMainCanvas *canvasPtr);
+		virtual void OnButtonClick(FsGuiButton *btn);
+		virtual void OnDropListSelChange(FsGuiDropList *drp,int prevSel);
+		virtual void OnNumberBoxChange(FsGuiNumberBox *nbx,int prevNum);
+	};
+
 	class CommentDialog;
 	class DrawingToolDialog : public FsGuiDialog
 	{

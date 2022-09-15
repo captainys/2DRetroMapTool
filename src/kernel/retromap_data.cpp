@@ -184,6 +184,7 @@ void RetroMap_World::MapPiece::MoveFrom(MapPiece &incoming)
 		this->diffTexHd=incoming.diffTexHd;
 		incoming.diffTexHd=nullptr;
 		this->shape=incoming.shape;
+		this->temporaryShape=incoming.temporaryShape;
 		this->usingTentativePosition=incoming.usingTentativePosition;
 		this->eventLevel=incoming.eventLevel;
 		this->alpha=incoming.alpha;

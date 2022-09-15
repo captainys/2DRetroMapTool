@@ -134,6 +134,14 @@ RetroMap_World::MapPieceHandle FsGui3DMainCanvas::MapPiece_Insert_Insert(RetroMa
 	auto mpHd=world.LoadImage(fdHd,pos,YsTextureManager::FOM_PNG,binData);
 	world.ReadyVbo(fdHd,mpHd);
 
+	if(nullptr!=controlDlg && YSTRUE==controlDlg->insertNewImageBehindBtn->GetCheck())
+	{
+		auto fieldPtr=world.GetField(fdHd);
+		auto toMpHd=fieldPtr->FirstMapPiece();
+		world.ChangePriority(fdHd,mpHd,toMpHd);
+		mpHd=toMpHd;
+	}
+
 	world.UnselectAllMarkUp(fdHd);
 	world.AddSelectedMapPiece(fdHd,mpHd);
 
@@ -152,6 +160,10 @@ void FsGui3DMainCanvas::MapPiece_InsertNewScreenshot(FsGuiPopUpMenuItem *)
 		auto msgDlg=FsGuiDialog::CreateSelfDestructiveDialog<FsGuiMessageBoxDialog>();
 		msgDlg->Make(L"",FSGUI_DLG_NEED_CONFIGURE_SCRNSHOTDIR,FSGUI_COMMON_OK,nullptr);
 		AttachModalDialog(msgDlg);
+		if(nullptr!=controlDlg)
+		{
+			controlDlg->autoInsertNewScreenShotBtn->SetCheck(YSFALSE);
+		}
 	}
 	else
 	{
