@@ -296,6 +296,28 @@ You probably need to trim the same region for the subsequent screenshots.  So, y
 
 You can also specify the minimum unit that the screenshots can move.  Many retro games scrolls the map 8 pixels at a time or even 40 pixels at a time.  Then, you really don't want to align your bitmaps on those unit boundaries.  The images should snap to those unit boundaries.  To do so, you can select [World]->[Set Unit] to specify the unit.
 
+
+---
+
+## エミュレータとの連携について
+
+なお、FM TOWNSエミュレータ「津軽」とFM77AVエミュレータ「陸奥」のクイックスクリーンショット機能には、デバッガで解析してマップ座標を解明すれば、その座標をスクリーンショットのファイル名にエンコードして出力する機能がある。その機能を使うと、ファイル名に$X=16$Y=32のような文字列が含まれていた場合、このツール内で指定した単位に、(16,32)を掛けた値の位置に新しいスクリーンショットを配置する。
+
+デバッガを使ってメモリのどこにマップ左上座標が書かれているかを解析する必要があるものの、成功すれば、Quick Screenshotを取るたびに、どんどんマップができていく。なお、停止した状態でスクリーンショットを取る必要あり。歩きながらスクリーンショットを取ると、プレイヤーキャラは移動したけどまだ画面が書き換わる前にスクリーンショットを撮ってしまう場合があって、そうすると座標がずれる。
+
+この機能、他のエミュレータ作者さんも対応してくれるといいんだけどな。
+
+
+## Coordination with an Emulator Software
+
+FM TOWNS Emulator "Tsugaru" and FM77AV Emulator "Mutsu" has quick-screenshot command, which saves a screenshot to a pre-specified directory with auto-generated file name.  You need to use debugger to find where the map coordinate is written, this is a very useful functionality for making a map.  For example, if you enable this feature, the file name of the screenshot will include something like $X=16$Y=32, in which case this program will place a new screenshot at (16*ux,32*uy) where ux and uy are the unit you specify in this program.
+
+It takes some skill to use a debugger to find the memory location of the map coordinate, but if you find it, just take quick-screenshot and the map will be populated automatically.  Oh, one thing to be careful is take screenshot when the player character is not moving.  If you take a screenshot while moving, the program may have moved the player character, but may not have re-drawn the map, then the map coordinate and the screenshot you get may be off by some pixels.
+
+I with other emulator developers also support this functionality.
+
+
+
 --- 
 
 ## 3次元化
