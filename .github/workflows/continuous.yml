@@ -1,0 +1,90 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ master ]
+    tags-ignore:
+      - 'v*' # Don't run if tagged as v*.
+
+jobs:
+  build-windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: checkout_captainys_public_libraries
+      run: git clone https://github.com/captainys/public.git
+    - name: mkdir
+      run: mkdir ci_windows
+    - name: build
+      run: |
+          cmake ../src
+          cmake --build . --config Release --target 2DRetroMapTool
+      working-directory: ./ci_windows
+    - name: make_zip
+      run: |
+          cmake -E copy ./2DRetroMapTool/Release/2DRetroMapTool.exe .
+          cmake -E copy ../README.md .
+          cmake -E copy ../LICENSE .
+          cmake -E tar cvf windows_binary_latest.zip --format=zip 2DRetroMapTool.exe README.md LICENSE
+      working-directory: ./ci_windows
+
+
+
+  build-linux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: checkout_captainys_public_libraries
+      run: git clone https://github.com/captainys/public.git
+    - name: mkdir
+      run: mkdir ci_ubuntu
+    - name: install-OpenGL
+      run: |
+          sudo apt-get update
+          sudo apt-get install libglu1-mesa-dev mesa-common-dev
+    - name: install-ALSA
+      run: sudo apt-get install libasound2 libasound2-dev
+    - name: cmake
+      run: cmake ../src -DCMAKE_BUILD_TYPE=Release
+      working-directory: ./ci_ubuntu
+    - name: build
+      run: cmake --build . --config Release --target 2DRetroMapTool
+      working-directory: ./ci_ubuntu
+
+    - name: make_zip
+      run: |
+          cmake -E copy ./2DRetroMapTool/2DRetroMapTool .
+          cmake -E copy ../README.md .
+          cmake -E copy ../LICENSE .
+          cmake -E tar cvf ubuntu_binary_latest.zip --format=zip 2DRetroMapTool README.md LICENSE
+      working-directory: ./ci_ubuntu
+
+
+
+  build-macos:
+
+    runs-on: macos-10.15
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: checkout_captainys_public_libraries
+      run: git clone https://github.com/captainys/public.git
+    - name: mkdir
+      run: mkdir ci_macos
+    - name: cmake
+      run: cmake ../src -DCMAKE_BUILD_TYPE=Release
+      working-directory: ./ci_macos
+    - name: build
+      run: cmake --build . --target 2DRetroMapTool
+      working-directory: ./ci_macos
+    - name: make_zip
+      run: |
+          cmake -E copy_directory 2DRetroMapTool/2DRetroMapTool.app ./2DRetroMapTool.app
+          cmake -E copy ../README.md .
+          cmake -E copy ../LICENSE
+          cmake -E tar cvf macos_binary_latest.zip --format=zip 2DRetroMapTool.app README.md LICENSE
+      working-directory: ./ci_macos
