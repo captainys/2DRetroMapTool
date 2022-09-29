@@ -83,8 +83,9 @@ jobs:
       working-directory: ./ci_macos
     - name: make_zip
       run: |
+          ls
           cmake -E copy_directory gui/2DRetroMapTool.app ./2DRetroMapTool.app
           cmake -E copy ../README.md .
-          cmake -E copy ../LICENSE
+          cmake -E copy ../LICENSE .
           cmake -E tar cvf macos_binary_latest.zip --format=zip 2DRetroMapTool.app README.md LICENSE
       working-directory: ./ci_macos
