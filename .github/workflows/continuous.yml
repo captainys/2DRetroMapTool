@@ -24,7 +24,7 @@ jobs:
       working-directory: ./ci_windows
     - name: make_zip
       run: |
-          cmake -E copy ./2DRetroMapTool/Release/2DRetroMapTool.exe .
+          cmake -E copy ./gui/Release/2DRetroMapTool.exe .
           cmake -E copy ../README.md .
           cmake -E copy ../LICENSE .
           cmake -E tar cvf windows_binary_latest.zip --format=zip 2DRetroMapTool.exe README.md LICENSE
@@ -57,7 +57,7 @@ jobs:
 
     - name: make_zip
       run: |
-          cmake -E copy ./2DRetroMapTool/2DRetroMapTool .
+          cmake -E copy ./gui/2DRetroMapTool .
           cmake -E copy ../README.md .
           cmake -E copy ../LICENSE .
           cmake -E tar cvf ubuntu_binary_latest.zip --format=zip 2DRetroMapTool README.md LICENSE
@@ -83,7 +83,7 @@ jobs:
       working-directory: ./ci_macos
     - name: make_zip
       run: |
-          cmake -E copy_directory 2DRetroMapTool/2DRetroMapTool.app ./2DRetroMapTool.app
+          cmake -E copy_directory gui/2DRetroMapTool.app ./2DRetroMapTool.app
           cmake -E copy ../README.md .
           cmake -E copy ../LICENSE
           cmake -E tar cvf macos_binary_latest.zip --format=zip 2DRetroMapTool.app README.md LICENSE
